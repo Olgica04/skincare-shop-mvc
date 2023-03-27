@@ -1,0 +1,88 @@
+﻿@model HomeViewModel;
+<div class="home-container">
+    @if (Model.Stats.OrdersServed == 0)
+    {
+        <div style="display: flex; flex-direction: column; margin: 0 auto">
+            <h3>Featured Products</h3>
+            <div class="featured-products-container">
+
+                @foreach (var product in Model.FeaturedProducts)
+                {
+                    <div class="featured-product-container">
+                        <div class="featured-product-name-container">
+                            <h6>@product.Name</h6>
+                        </div>
+                        <div>
+                            <p>@product.CategoryName</p>
+                        </div>
+                        <div class="featured-product-img-container">
+                            <img src="@product.ImgSrc" class="img-featured-products" />
+                        </div>
+                        <div>
+                            <a asp-controller="Order" asp-action="SingleOrder" asp-route-id="@product.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                                Order
+                            </a>
+                        </div>
+                    </div>
+                    <hr />
+                }
+            </div>
+        </div>
+    }
+    @if (Model.Stats.OrdersServed > 0)
+    {
+        <div style="display: flex; flex-direction: column;">
+
+            <div>
+                <h3>Best Selling Product</h3>
+                <div class="product-home-container">
+                    <div class="img-container">
+                        <img src=@Model.Stats.BestSellingProduct.ImgSrc class="img-product">
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <h5 class="mb-3">@Model.Stats.BestSellingProduct.Name</h5>
+                    </div>
+                    <div class="mb-3">
+                        <p>@Model.Stats.BestSellingProduct.Description</p>
+                    </div>
+                    <hr>
+                    <div class="cta-container">
+                        <p>Category: @Model.Stats.BestSellingProduct.CategoryName</p>
+                        <p>Price: @Model.Stats.BestSellingProduct.Price$</p>
+                        <a asp-controller="Order" asp-action="SingleOrder" asp-route-id="@Model.Stats.BestSellingProduct.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                            Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>Featured Products</h3>
+            <div class="featured-products-container">
+
+                @foreach (var product in Model.FeaturedProducts)
+                {
+                    <div class="featured-product-container">
+                        <div class="featured-product-name-container">
+                            <h6>@product.Name</h6>
+                        </div>
+                        <div>
+                            <p>@product.CategoryName</p>
+                        </div>
+                        <div class="featured-product-img-container">
+                            <img src="@product.ImgSrc" class="img-featured-products" />
+                        </div>
+                        <div>
+                            <a asp-controller="Order" asp-action="SingleOrder" asp-route-id="@product.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                                Order
+                            </a>
+                        </div>
+                    </div>
+                    <hr />
+                }
+            </div>
+        </div>
+    }
+</div>

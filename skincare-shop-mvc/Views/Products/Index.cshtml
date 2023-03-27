@@ -1,0 +1,70 @@
+﻿@using Application.Dto.Product
+@model ProductsViewModel
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="categories-navigation">
+    <h5 class="categories-navigation-items active">All Products</h5>
+    @foreach (var category in Model.Categories)
+    {
+        <h5 class="categories-navigation-items">@category</h5>
+
+    }
+</div>
+
+<div class="products-container">
+    @foreach (var product in Model.Products)
+    {
+        <div class="product-container">
+            <div class="img-container">
+                <img src=@product.ImgSrc class="img-product">
+            </div>
+            <hr>
+            <div class="mb-3">
+                <h5 class="mb-3">@product.Name</h5>
+            </div>
+            <div class="mb-3">
+                <p>@product.Description</p>
+            </div>
+            <hr>
+            <div class="cta-container">
+                <p>Category: @product.CategoryName</p>
+                <p>Price: @product.Price$</p>
+                <a asp-controller="Order" asp-action="SingleOrder" asp-route-id="@product.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                    Order
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@for (var i = 0; i < Model.Categories.Count; i++)
+{
+    <div class="products-container hidden">
+        @foreach (var product in Model.Products.Where(x => x.CategoryName == Model.Categories[i]))
+        {
+            <div class="product-container">
+                <div class="img-container">
+                    <img src=@product.ImgSrc class="img-product">
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <h5 class="mb-3">@product.Name</h5>
+                </div>
+                <div class="mb-3">
+                    <p>@product.Description</p>
+                </div>
+                <hr>
+                <div class="cta-container">
+                    <p>Category: @product.CategoryName</p>
+                    <p>Price: @product.Price$</p>
+                    <a asp-controller="Order" asp-action="SingleOrder" asp-route-id="@product.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                        Order
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+}

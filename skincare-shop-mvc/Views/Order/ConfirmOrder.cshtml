@@ -1,0 +1,90 @@
+﻿@using Application.Dto.Order
+@model OrderDto;
+
+<div class="confirm-container">
+    <h6>Order details:</h6>
+
+    <div>
+        <p>Name: @Model.FirstName @Model.LastName</p>
+        <p>Address: @Model.Address</p>
+        @foreach (var product in Model.Products)
+        {
+            @if (product.IsSelected)
+            {
+                <div>
+                    <p>@product.ProductName, <i>price: @product.ProductPrice$, quantity: @product.Quantity, </i></p>
+                    <p>Full price: @product.BatchOrderPrice$</p>
+                </div>
+            }
+        }
+        <p><b>Order total price: @Model.TotalPrice$</b></p>
+
+        <button class="btn bg-success confirm-order">Confirm</button>
+
+        <button class="btn bg-danger cancel-order">Clear and go back</button>
+
+    </div>
+
+    <div class="cancel hidden">
+        <form asp-controller="Order" asp-action="CancelOrder" asp-route-id="@Model.Id" method="post">
+            <label>Are you sure you want to cancel your order?</label>
+            <button class="btn btn-danger active" role="button">
+                Confirm
+            </button>
+        </form>
+    </div>
+
+    <div class="payment hidden">
+        <label asp-for="Payment.CardHolderName">Card Holder Name</label>
+        <input asp-for="Payment.CardHolderName" class="form-control" />
+
+        <label asp-for="Payment.CreditCardNumber">Credit Card Number</label>
+        <input asp-for="Payment.CreditCardNumber" class="form-control" />
+
+        <label asp-for="Payment.CVV2CVC2Code"></label>
+        <input asp-for="Payment.CVV2CVC2Code" class="form-control" />
+
+        <label asp-for="Payment.CardExpirationDate">Card Expiration Date</label>
+        <select asp-for="Payment.CardExpirationDate">
+            @for (int i = 1; i <= 12; i++)
+            {
+                <option>@i</option>
+            }
+        </select>
+        <select asp-for="Payment.CardExpirationDate">
+            @for (int j = DateTime.Now.Year; j <= DateTime.Now.Year + 8; j++)
+            {
+                <option>@j</option>
+            }
+        </select>
+        <br>
+        <label>Order amount</label>
+        <input value="@Model.TotalPrice$" readonly class="form-control" />
+        <br />
+
+        <button class="btn btn-primary order" role="button" aria-pressed="true">Create order and pay</button>
+    </div>
+</div>
+
+<div class="message-container hidden">
+    <p>Hello @Model.FirstName,</p>
+    <p>Thank you for using our online services!</p>
+    <p>
+        Your order of @foreach (var product in Model.Products)
+        {
+            @if (product.IsSelected)
+            {
+                <b>@product.Quantity @product.ProductName;</b>
+            }
+        } with total price of @Model.TotalPrice$ has been created.
+    </p>
+    <p>Your order will be delievered to @Model.Address as soon as possible.</p>
+    <p>Don't hesitate to use our services again!</p>
+
+    <br />
+    <div>
+        <a asp-controller="Order" asp-action="Index" class="btn btn-primary active" role="button" aria-pressed="true">Create another order</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary active" role="button" aria-pressed="true">Go back to Homepage</a>
+        <a asp-controller="Products" asp-action="Index" class="btn btn-primary active" role="button" aria-pressed="true">Go back to Products</a>
+    </div>
+</div>

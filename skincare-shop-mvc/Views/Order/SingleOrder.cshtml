@@ -1,0 +1,56 @@
+﻿@using Application.Dto.Order;
+@model CreateOrderDto;
+
+<h2>Create an order</h2>
+
+<form asp-controller="Order" asp-action="ConfirmOrder" method="post">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="">First and last name</span>
+        </div>
+        <input asp-for="FirstName" type="text" class="form-control" placeholder="Name" required="required" />
+        <input asp-for="LastName" type="text" class="form-control" placeholder="Surname" required="required" />
+    </div>
+    <br />
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Address</span>
+        </div>
+        <input asp-for="Address" type="text" class="form-control" placeholder="Address" aria-label="Username" aria-describedby="basic-addon1" required="required" />
+    </div>
+    <br />
+
+    <div class="select-products-container">
+        @for (int i = 0; i < Model.Products.Count; i++)
+        {
+            <input type="hidden" asp-for="Products[i].ProductId" />
+            <div class="select-products">
+                <label asp-for="Products[i].IsSelected">
+                    @Model.Products[i].ProductName, <i><small>Price: @Model.Products[i].ProductPrice$</small></i>
+                </label>
+                <input type="checkbox" asp-for="Products[i].IsSelected" />
+                <br />
+
+                <label asp-for="Products[i].Quantity"><small>Select quantity</small></label>
+                <select asp-for="Products[i].Quantity" class="custom-select" id="inputGroupSelect01">
+                    @for (int j = 1; j <= 10; j++)
+                    {
+                        <option>@j</option>
+                    }
+                </select>
+                <br />
+                <hr />
+            </div>
+
+            <input type="hidden" asp-for="Products[i].ProductName" />
+            <input type="hidden" asp-for="Products[i].ProductPrice" />
+            <input type="hidden" asp-for="Products[i].BatchOrderPrice" />
+            <input type="hidden" asp-for="TotalPrice" />
+            <br />
+        }
+    </div>
+    <div class="container" style="text-align: center">
+        <button type="submit" class="btn container col-4 bg-primary">Submit</button>
+    </div>
+</form>

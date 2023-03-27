@@ -1,0 +1,37 @@
+﻿@using Application.Dto.Order
+@model IEnumerable<OrderDto>;
+
+<table class="table">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col" class="table-primary">Order Id</th>
+            <th scope="col" class="table-primary">Order amount</th>
+            <th scope="col" class="table-primary">Order time</th>
+            <th scope="col" class="table-primary">Status</th>
+            <th scope="col" class="table-primary">View full order</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr class="table-success">
+                <td class="table-success">@order.Id</td>
+                <td class="table-success">@order.TotalPrice$</td>
+                <td class="table-success">@order.OrderDate</td>
+                @if (!order.IsCancelled)
+                {
+                    <td class="table-success">Delievered</td>
+                }
+                @if (order.IsCancelled)
+                {
+                    <td class="table-success">Cancelled</td>
+                }
+                <td class="table-success">
+                    <a asp-controller="Order" asp-action="OrderLog" asp-route-id="@order.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                        View Order
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,10 @@
+﻿@using Application.Dto.Product
+
+@model CategoryDto
+
+<form asp-controller="Admin" asp-action="EditCategory" asp-route-id="@Model.Id" method="post">
+    <label asp-for="Name"></label>
+    <input class="form-control" asp-for="Name" />
+
+    <button type="submit" class="btn container col-4 bg-primary">Update</button>
+</form>

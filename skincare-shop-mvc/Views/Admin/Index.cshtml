@@ -1,0 +1,94 @@
+﻿@model AdminViewModel;
+
+@if (Model.Stats.OrdersServed > 0)
+{
+    <div class="stats-container">
+        <h5>Orders served: @Model.Stats.OrdersServed</h5>
+        <h5>Average Order Price: @Model.Stats.AverageOrderPrice$</h5>
+    </div>
+    <br />
+}
+
+<div class="mb-lg-5">
+    <a asp-controller="Order" asp-action="Orders" class="container btn btn-primary btn-lg active" role="button" aria-pressed="true">
+        Go to Orders log
+    </a>
+</div>
+
+<div class="mb-lg-5">
+    <h2>Manage products:</h2>
+    <table class="table">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col" class="table-primary">Product Id</th>
+                <th scope="col" class="table-primary">Product name</th>
+                <th scope="col" class="table-primary">Product price</th>
+                <th scope="col" class="table-primary">Product category</th>
+                <th scope="col" class="table-primary">Edit</th>
+                <th scope="col" class="table-primary">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr class="table-success">
+                    <td class="table-success">@product.Id</td>
+                    <td class="table-success">@product.Name</td>
+                    <td class="table-success">@product.Price$</td>
+                    <td class="table-success">@product.CategoryName</td>
+                    <td class="table-success">
+                        <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-primary active" role="button" aria-pressed="true">
+                            Edit Product
+                        </a>
+                    </td>
+                    <td class="table-success">
+                        <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@product.Id" class="btn btn-danger active" role="button" aria-pressed="true">
+                            Delete Product
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-controller="Admin" asp-action="AddProduct" class="container btn btn-info btn-lg active" role="button" aria-pressed="true">
+        Add new product
+    </a>
+</div>
+
+<div class="mb-lg-5">
+    <h2>Manage categories:</h2>
+    <table class="table">
+        <thead>
+            <tr class="table-primary">
+                <th scope="col" class="table-primary">Category Id</th>
+                <th scope="col" class="table-primary">Category name</th>
+                <th scope="col" class="table-primary">Edit</th>
+                <th scope="col" class="table-primary">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Categories)
+            {
+                <tr class="table-success">
+                    <td class="table-success">@category.Id</td>
+                    <td class="table-success">@category.Name</td>
+                    <td class="table-success">
+                        <a asp-controller="Admin" asp-action="EditCategory" asp-route-id="@category.Id" class="btn btn-secondary active" role="button" aria-pressed="true">
+                            Edit Category
+                        </a>
+                    </td>
+                    <td class="table-success">
+                        <a asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-danger active" role="button" aria-pressed="true">
+                            Delete Category
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-controller="Admin" asp-action="AddCategory" class="container btn btn-info btn-lg active" role="button" aria-pressed="true">
+        Add new category
+    </a>
+</div>

@@ -1,0 +1,35 @@
+﻿@using Application.Dto.Product
+
+@model AddProductViewModel
+
+<form asp-controller="Admin" asp-action="EditProduct" method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for=Form!.Name type="text" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input asp-for=Form!.Price type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for=Form!.Description></label>
+        <input asp-for="Form!.Description" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for=Form!.ImgSrc>Image url</label>
+        <textarea asp-for="Form!.ImgSrc" rows="2" cols="100" class="form-control">
+       </textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="Form!.CategoryId">Category</label>
+        <select asp-for="Form!.CategoryId" asp-items="Model.Categories" class="form-select" id="inputGroupSelect01"></select>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-lg bg-primary">Submit</button>
+    </div>
+</form>

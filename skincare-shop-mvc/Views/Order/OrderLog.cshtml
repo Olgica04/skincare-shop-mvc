@@ -1,0 +1,19 @@
+﻿@using Application.Dto.Order;
+@model OrderDto;
+
+<div class="container">
+    <h3>Order details</h3>
+    <h5>Order Id: @Model.Id</h5>
+    <h5>Customer name: @Model.FirstName @Model.LastName</h5>
+    <h5>Customer Address: @Model.Address</h5>
+    <h5>Order Price: @Model.TotalPrice$</h5>
+    <h5>Products: @Model.ItemsInOrder</h5>
+    @if (!Model.IsCancelled)
+    {
+        <h5>Status: Delievered</h5>
+    }
+    @if (Model.IsCancelled)
+    {
+        <h5>Status: Cancelled</h5>
+    }
+</div>
